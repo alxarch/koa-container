@@ -1,0 +1,31 @@
+{
+  "name": "koa-container",
+  "version": "0.1.0",
+  "description": "Dependency injection container for koa",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "keywords": [
+    "koa",
+    "container",
+    "dependency",
+    "injection"
+  ],
+  "author": "Sigalas Alexandros <alxarch@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "co": "^4.6.0",
+    "jimple": "^1.4.0",
+    "koa-compose": "^2.4.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alxarch/koa-container.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alxarch/koa-container/issues"
+  },
+  "homepage": "https://github.com/alxarch/koa-container#readme"
+}
