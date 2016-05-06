@@ -3,6 +3,7 @@
 const Jimple = require('jimple');
 const co = require('co');
 const compose = require('koa-compose');
+const pathToRx = require('path-to-regexp');
 
 function isFunction (fn) {
 	return fn && fn.constructor && 'Function' === fn.constructor.name;
@@ -18,6 +19,26 @@ class Container extends Jimple {
 		for (let key in values) {
 			this.set(key, values[key]);
 		}
+	}
+
+	matchKeys (pattern, values) {
+		const params = [];
+		const rx = pathToRx(pattern, params);
+		return this.keys().reduce((result, key) => {
+			const m = rx.exec(key);
+			if (m) {
+				const match = {key};
+				match.params = {};
+				for (let i=0; i < params.length; i++) {
+					match.params[params[i].name] = m[i + 1];
+				}
+				if (values) {
+					match.value = this.get(key);
+				}
+				result.push(match);
+			}
+			return result;
+		}, []);
 	}
 
 	setdefault (key, value) {

@@ -1,6 +1,6 @@
 {
   "name": "koa-container",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Dependency injection container for koa",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,8 @@
   "dependencies": {
     "co": "^4.6.0",
     "jimple": "^1.4.0",
-    "koa-compose": "^2.4.0"
+    "koa-compose": "^2.4.0",
+    "path-to-regexp": "^1.2.1"
   },
   "devDependencies": {},
   "repository": {

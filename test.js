@@ -4,7 +4,7 @@ const assert = require('assert');
 const Container = require('.');
 
 
-const cnt = new Container({foo: 'bar'});
+let cnt = new Container({foo: 'bar'});
 assert.equal(cnt.get('foo'), 'bar');
 
 // Container#setdefault()
@@ -35,3 +35,49 @@ function *middleware (next) {
 }
 cnt.register({ run: (c => middleware) });
 assert.equal(cnt.middleware[0], middleware);
+
+
+// Container#matchKeys()
+
+cnt = new Container();
+cnt.set('foo.bar.baz', 'foo');
+cnt.set('foo.bar', 'bar');
+cnt.set('baz.bar', 'foo');
+
+assert.deepEqual(cnt.matchKeys('foo.:bar.:baz?', true), [
+	{
+		key: 'foo.bar.baz',
+		params: {
+			bar: 'bar',
+			baz: 'baz'
+		},
+		value: 'foo'
+	},
+	{
+		key: 'foo.bar',
+		params: {
+			bar: 'bar',
+			baz: undefined
+		},
+		value: 'bar'
+	}
+	
+]);
+assert.deepEqual(cnt.matchKeys('foo.:bar.:baz?'), [
+	{
+		key: 'foo.bar.baz',
+		params: {
+			bar: 'bar',
+			baz: 'baz'
+		}
+	},
+	{
+		key: 'foo.bar',
+		params: {
+			bar: 'bar',
+			baz: undefined
+		}
+	}
+	
+]);
+
